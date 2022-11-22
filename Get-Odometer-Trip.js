@@ -1,6 +1,6 @@
-var fromDate = "2020-01-01T05:00:00.000Z",
-    toDate = "2020-12-31T23:59:59.000Z",
-    device = "b1"
+var fromDate = "2022-11-1T00:00:00.000Z",
+    toDate = "2022-11-22T23:59:59.000Z",
+    device = "bc"
 
 api.multiCall([
     
@@ -54,9 +54,11 @@ api.multiCall([
             tripData = result[2],
             initialOdo,
             finalOdo,
-            distance = 0,
+            distance_gps = 0,
+            distance_odo = 0,
             fuelUsed,
-            efficiency;
+            efficiency_gps,
+            efficiency_odo;
         
         if (odometerData.length === 0) {
             console.log("No odometer found for device");
@@ -64,27 +66,30 @@ api.multiCall([
             initialOdo = 0.001 * odometerData[0].data,
             finalOdo = 0.001 * odometerData[odometerData.length - 1].data,
             console.log("Initial odometer: ", initialOdo, " km"),
-            console.log("Final odometer: ", finalOdo, " km")
+            console.log("Final odometer: ", finalOdo, " km"),
+            distance_odo = finalOdo - initialOdo
         }
         
         if (tripData.length === 0) {
             console.log("No trip distance found");
         } else {
             for (var i = 0; i < tripData.length; i++){
-                distance = distance + tripData[i].distance
+                distance_gps = distance_gps + tripData[i].distance
             }
-            console.log("Trip distance travelled: ", distance, " km")
+            console.log("Trip distance travelled: ", distance_gps, " km"),
+            console.log("Odometer distance travelled: ", distance_odo, " km")
         }
-        
         if (fuelUsedData.length === 0) {
             console.log("No fuel consumption found for device");
         } else {
+
             fuelUsed = fuelUsedData[fuelUsedData.length - 1].data - fuelUsedData[0].data,
-            efficiency = distance / fuelUsed,
+            efficiency_gps = distance_gps / fuelUsed,
+            efficiency_odo = distance_odo / fuelUsed,
             console.log("Fuel consumption: ", fuelUsed, " l"),
-            console.log("Fuel economy: ", efficiency, " km/l")
+            console.log("Fuel economy (GPS): ", efficiency_gps," km/l"),
+            console.log("Fuel economy (Odometer): ", efficiency_odo," km/l")
         }
-        
     },
 
     function(e){
