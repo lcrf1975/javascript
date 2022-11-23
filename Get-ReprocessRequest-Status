@@ -1,0 +1,14 @@
+{
+    "method": "Get",
+    "params": {
+        "typeName": "ReprocessRequest",
+        "search": {
+            "id": "aAUwPWAnYJ06V15ZKIbGUHA"
+        },
+        "credentials": {
+            "database": "DB",
+            "userName": "USER",
+            "sessionId": "XXXXX"
+        }
+    }
+}
