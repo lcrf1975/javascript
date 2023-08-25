@@ -1,7 +1,14 @@
-api.call("DecodeVins", {
-    "vins":["your vin here"]
-}, function(result) {
-    console.log("Done: ", result);
-}, function(e) {
-    console.error("Failed:", e);
-});
+{
+    "method": "DecodeVins",
+    "params": {
+        "vins": [
+            "VIN 1",
+            "VIN 2"
+        ],
+        "credentials": {
+            "database": "DB name",
+            "userName": "user name",
+            "sessionId": "session id"
+        }
+    }
+}
