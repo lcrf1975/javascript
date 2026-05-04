@@ -19,6 +19,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - language: javascript-typescript
+            build-mode: none
+            runner: ubuntu-latest
           - language: actions
             build-mode: none
             runner: ubuntu-latest
